@@ -1,0 +1,9 @@
+# spring:
+#   datasource:
+#     url: jdbc:postgresql://localhost:5432/locker
+#     username: postgres
+#     password: Panthera02
+#   jpa:
+#     show-sql: true
+#   thymeleaf:
+#     cache: false
