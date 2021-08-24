@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -41,6 +42,14 @@ public class AppController {
   public List<NewCustomerDTO> getAllCustomers() {
     return newCustomerRepository.getAllCustomer();
 //    return customerRepository.getAllCustomers();
+  }
+
+  @GetMapping("/customer/search")
+  public List<CustomerEntity> searchCustomer
+          (@RequestParam(value = "id",required = false) Integer userId,
+           @RequestParam(value = "fullName",required = false) String fullName,
+           @RequestParam(value = "phoneNum",required = false) String phoneNum){
+    return newCustomerRepository.searchCustomer(userId,fullName,phoneNum);
   }
 
 }

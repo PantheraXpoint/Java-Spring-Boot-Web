@@ -8,10 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ListJoin;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -33,5 +31,32 @@ public class NewCustomerRepoImpl implements NewCustomerRepository{
         List<NewCustomerDTO> result = em.createQuery(query).getResultList();
         return  result;
     }
+
+    @Override
+    public List<CustomerEntity> searchCustomer(Integer userId, String fullName, String phoneNum) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<CustomerEntity> query = builder.createQuery(CustomerEntity.class);
+        Root<CustomerEntity> customer = query.from(CustomerEntity.class);
+        List<Predicate> predicates = new ArrayList<>();
+//      Predicate means condition
+        if (userId != null) {
+            Predicate equalUserId = builder.equal(customer.get("customerId"), userId);
+            predicates.add(equalUserId);
+        }
+        if (fullName != null && !fullName.isEmpty()) {
+            Predicate hasFullNameLike = builder.like(customer.get("fullName"),"%"+fullName+"%");
+            predicates.add(hasFullNameLike);
+        }
+        if (phoneNum != null && !phoneNum.isEmpty())
+        {
+            Predicate hasPhoneNumberLike = builder.like(customer.get("phoneNumber"),"%"+phoneNum+"%");
+            predicates.add(hasPhoneNumberLike);
+        }
+        Predicate condition = builder.and(predicates.toArray(new Predicate[predicates.size()]));
+        query.select(customer).where(condition);
+        return em.createQuery(query).getResultList();
+    }
+
+
 }
 

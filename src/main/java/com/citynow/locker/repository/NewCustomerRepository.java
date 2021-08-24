@@ -7,5 +7,6 @@ import com.citynow.locker.entity.dto.NewCustomerDTO;
 import java.util.List;
 
 public interface NewCustomerRepository {
-    public List<NewCustomerDTO> getAllCustomer();
+    List<NewCustomerDTO> getAllCustomer();
+    List<CustomerEntity> searchCustomer(Integer userId, String fullName, String phoneNum);
 }
