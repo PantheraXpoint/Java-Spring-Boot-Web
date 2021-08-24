@@ -39,20 +39,26 @@ public class NewCustomerRepoImpl implements NewCustomerRepository{
         Root<CustomerEntity> customer = query.from(CustomerEntity.class);
         List<Predicate> predicates = new ArrayList<>();
 //      Predicate means condition
+
         if (userId != null) {
+//            where customer.id = :customerId
             Predicate equalUserId = builder.equal(customer.get("customerId"), userId);
             predicates.add(equalUserId);
         }
         if (fullName != null && !fullName.isEmpty()) {
+//            where customer.fullName like %:fullName%
             Predicate hasFullNameLike = builder.like(customer.get("fullName"),"%"+fullName+"%");
             predicates.add(hasFullNameLike);
         }
         if (phoneNum != null && !phoneNum.isEmpty())
         {
+//            where customer.phoneNumber like %:phoneNum%
             Predicate hasPhoneNumberLike = builder.like(customer.get("phoneNumber"),"%"+phoneNum+"%");
             predicates.add(hasPhoneNumberLike);
         }
+//        where ... and ... and ..
         Predicate condition = builder.and(predicates.toArray(new Predicate[predicates.size()]));
+//        select * from customer where ...
         query.select(customer).where(condition);
         return em.createQuery(query).getResultList();
     }
