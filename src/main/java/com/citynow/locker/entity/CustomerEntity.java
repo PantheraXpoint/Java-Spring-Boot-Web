@@ -1,16 +1,13 @@
 package com.citynow.locker.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +18,7 @@ import lombok.Setter;
 public class CustomerEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
+  @Column(name = "id", unique = true, nullable = false)
   private Integer customerId;
   @Column(name = "email")
   private String email;
@@ -35,4 +32,6 @@ public class CustomerEntity {
   private Integer gender;
   @Column(name = "phone_number")
   private String phoneNumber;
+  @OneToMany(mappedBy = "customerId")
+  private List<TicketEntity> tickets;
 }

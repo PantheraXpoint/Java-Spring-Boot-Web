@@ -1,6 +1,7 @@
 package com.citynow.locker.entity.dto;
 
 
+import lombok.Data;
 
 public interface CustomerDTO {
 

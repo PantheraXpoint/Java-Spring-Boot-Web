@@ -26,7 +26,7 @@ public class TicketEntity {
   @JsonIgnore
   @Id
   // @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", nullable = false)
+  @Column(name = "id", nullable = false, unique = true)
   private Integer id;
   @Column(name = "start_date_time")
   private LocalDate startDateTime;
@@ -34,9 +34,8 @@ public class TicketEntity {
   private LocalDate endDateTime;
   @Column(name = "remark")
   private String remark;
-  @ManyToOne
-  @JoinColumn(name = "customer_id")
-  private CustomerEntity customerEntity;
+  @Column(name="customer_id")
+  private String customerId;
 
   // @Column(name = "customer_id")
   // private Integer customerId;

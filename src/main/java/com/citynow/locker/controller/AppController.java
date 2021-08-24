@@ -2,10 +2,14 @@ package com.citynow.locker.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.citynow.locker.entity.CustomerEntity;
 import com.citynow.locker.entity.TicketEntity;
 import com.citynow.locker.entity.dto.CustomerDTO;
+import com.citynow.locker.entity.dto.NewCustomerDTO;
 import com.citynow.locker.entity.dto.TicketHistoryDTO;
 import com.citynow.locker.repository.CustomerRepository;
+import com.citynow.locker.repository.NewCustomerRepository;
 import com.citynow.locker.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -18,6 +22,8 @@ public class AppController {
   @Autowired
   private TicketRepository ticketRepository;
 
+  @Autowired
+  private NewCustomerRepository newCustomerRepository;
   @Autowired
   private CustomerRepository customerRepository;
 
@@ -32,8 +38,9 @@ public class AppController {
   }
 
   @GetMapping("/customer/all")
-  public List<CustomerDTO> getAllCustomers() {
-    return customerRepository.getAllCustomers();
+  public List<NewCustomerDTO> getAllCustomers() {
+    return newCustomerRepository.getAllCustomer();
+//    return customerRepository.getAllCustomers();
   }
 
 }
