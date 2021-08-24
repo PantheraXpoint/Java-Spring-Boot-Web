@@ -16,4 +16,6 @@ public interface TicketHistoryDTO {
   Timestamp getStartDateTime();
 
   Timestamp getEndDateTime();
+
+
 }
