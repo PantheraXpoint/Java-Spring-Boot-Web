@@ -69,7 +69,7 @@ public class AppController {
   public List<NewCustomerDTO> searchCustomer(
       @RequestParam(value = "customerId", required = false) Integer userId,
       @RequestParam(value = "fullName", required = false) String fullName,
-      @RequestParam(value = "phoneNum", required = false) String phoneNum) {
+      @RequestParam(value = "phoneNumber", required = false) String phoneNum) {
     return newCustomerRepository.searchCustomer(userId, fullName, phoneNum);
   }
 

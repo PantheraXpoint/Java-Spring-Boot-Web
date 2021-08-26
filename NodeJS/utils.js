@@ -7,12 +7,14 @@ export function serialize(obj) {
     return str.join("&");
 }
 
-export const getDate = (day,month,year) => {
-    let ymdFormat = year+"-"+month+"-"+day;
-    return new Date(ymdFormat).toISOString().substring(0,10);;
+export const getDate = (day, month, year) => {
+    let ymdFormat = year + "-" + month + "-" + day;
+    return new Date(ymdFormat).toISOString().substring(0, 10);;
 }
 
-export const getDateByYMDHMFormat = (day,month,year) => {
-    let ymdFormat = year+"-"+month+"-"+day;
-    return new Date(ymdFormat).toISOString().substring(0,16).split("T").join(" ").replace(/[-]/g,"/");
+export const getDateByYMDHMFormat = (day, month, year) => {
+    let ymdFormat = year + "-" + month + "-" + day;
+    return new Date(ymdFormat).toISOString().substring(0, 16).split("T").join(" ").replace(/[-]/g, "/");
 }
+
+export const BASE_URL = "http://localhost:8080"

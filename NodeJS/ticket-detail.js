@@ -1,5 +1,6 @@
-const TicketDetailUrl = 'http://localhost:8080/ticket/detail';
-import {getDateByYMDHMFormat} from "./utils.js"
+import {getDateByYMDHMFormat, BASE_URL} from "./utils.js"
+const TicketDetailUrl = `${BASE_URL}/ticket/detail`;
+
 
 
 // event listener
