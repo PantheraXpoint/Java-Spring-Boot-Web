@@ -51,7 +51,7 @@ public interface TicketRepository extends JpaRepository<TicketEntity, Integer> {
 
   @Transactional
   @Modifying
-  @Query(value = "UPDATE ticket set end_date_time = now(),  where id = :id",
+  @Query(value = "UPDATE ticket set end_date_time = now() where id = :id",
       nativeQuery = true)
   public Integer returnTicket(@Param("id") Integer ticket_id);
 

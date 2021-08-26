@@ -20,6 +20,7 @@ import com.citynow.locker.entity.TicketEntity;
 import com.citynow.locker.entity.dto.TicketDetailDTO;
 import com.citynow.locker.entity.newDto.NewTicketHistoryDTO;
 import com.citynow.locker.entity.newDto.newTicketDetailDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class NewTicketRepoImpl implements NewTicketRepository {
   @PersistenceContext
   private EntityManager em;
 
+  @Autowired
   private TicketRepository ticketRepository;
 
   @Override
@@ -132,7 +134,6 @@ public class NewTicketRepoImpl implements NewTicketRepository {
   }
 
 
-
   @Override
   @Transactional
   public Integer updateTicket(newTicketDetailDTO tk) {
@@ -149,17 +150,20 @@ public class NewTicketRepoImpl implements NewTicketRepository {
     // ------- Update Customer -----
     var customerUpdate = builder.createCriteriaUpdate(CustomerEntity.class);
     var rootCustomer = customerUpdate.from(CustomerEntity.class);
-    customerUpdate.set(rootCustomer.get("fullName"), tk.getFullName())
-        .where(builder.equal(rootCustomer.get("customerId"),
-            ticket.getCustomerEntity().getCustomerId()));
-    customerUpdate.set(rootCustomer.get("phoneNumber"), tk.getPhoneNumber())
-        .where(builder.equal(rootCustomer.get("customerId"),
-            ticket.getCustomerEntity().getCustomerId()));
-    customerUpdate.set(rootCustomer.get("gender"), tk.getGender())
-        .where(builder.equal(rootCustomer.get("customerId"),
-            ticket.getCustomerEntity().getCustomerId()));
-
-    succeeded = em.createQuery(customerUpdate).executeUpdate();
+    if (tk.getFullName() !=null && !tk.getFullName().isEmpty())
+      customerUpdate.set(rootCustomer.get("fullName"), tk.getFullName())
+          .where(builder.equal(rootCustomer.get("customerId"),
+              ticket.getCustomerEntity().getCustomerId()));
+    if (tk.getPhoneNumber() !=null && !tk.getPhoneNumber().isEmpty())
+      customerUpdate.set(rootCustomer.get("phoneNumber"), tk.getPhoneNumber())
+          .where(builder.equal(rootCustomer.get("customerId"),
+              ticket.getCustomerEntity().getCustomerId()));
+    if (tk.getGender() !=null )
+      customerUpdate.set(rootCustomer.get("gender"), tk.getGender())
+          .where(builder.equal(rootCustomer.get("customerId"),
+              ticket.getCustomerEntity().getCustomerId()));
+    if(tk.getGender() != null || tk.getPhoneNumber() != null || tk.getFullName() != null)
+      succeeded = em.createQuery(customerUpdate).executeUpdate();
     // ------------------------------
     // ------- Update Locker -----
     AssignmentEntity extract = getLockerCodeByTicketId(tk.getTicketId()).get(0);

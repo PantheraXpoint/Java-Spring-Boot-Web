@@ -1,4 +1,7 @@
+server:
+  port: 8081
 spring:
+
 
   main:
     banner-mode: off
@@ -10,9 +13,9 @@ spring:
       continue-on-error: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/locker
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: Panthera02
+    password: 11031999
 
     hikari:
       maximum-pool-size: 1
